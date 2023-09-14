@@ -1,17 +1,21 @@
+# Aircraft Sim
+This is a homework project for my aerospace C++ class. 
+Releases are available on the Releases page.
+
 ## Building
 To build the project create a `build` directory at the root of the project
 and move into it.
 
-    `$ mkdir build && cd build`
+    $ mkdir build && cd build
 
 Create the editor project files or Makefile.
 
-    `$ cmake ..`
+    $ cmake ..
 
 ### Unix
 Run the Makefile.
 
-    `$ make`
+    $ make
 
 ### Windows
 Open the solution file `AricraftSim.sln` in Visual Studio.
