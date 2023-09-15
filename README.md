@@ -18,7 +18,7 @@ Run the Makefile.
     $ make
 
 ### Windows
-Open the solution file `AricraftSim.sln` in Visual Studio.
+Open the solution file `AircraftSim.sln` in Visual Studio.
 Build the project from Visual Studio.
 
 ## Build Types
