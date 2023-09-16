@@ -173,9 +173,24 @@ void question_4() {
         << "\n\n" << std::endl;
 }
 
+void question_5() {
+    std::cout << "==================\n";
+    std::cout << "=== Question 5 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    const double z = 0.0176835;
+    const double sig = sigmoid(z);
+    const double grad_sig = gradient_sigmoid(z);
+
+    std::cout << "sigmoid(0.0176835) = " << std::fixed << std::setprecision(6)
+        << sig << "\ngradient_sigmoid(0.0176835) = " << grad_sig
+        << "\n\n" << std::endl;
+}
+
 int main() {
     question_1();
     question_2();
     question_3();
     question_4();
+    question_5();
 } 

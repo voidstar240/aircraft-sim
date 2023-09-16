@@ -1,6 +1,7 @@
 #include "math_funcs.h"
 #include <cstdint>
 #include <stdexcept>
+#include <cmath>
 
 
 double dot_product(std::vector<double> u, std::vector<double> v) {
@@ -13,4 +14,12 @@ double dot_product(std::vector<double> u, std::vector<double> v) {
         sum += u[i] * v[i];
     }
     return sum;
+}
+
+double sigmoid(const double z) {
+    return 1.0 / (1.0 + std::exp(-1.0 * z));
+}
+
+double gradient_sigmoid(const double z) {
+    return sigmoid(z) * (1.0 - sigmoid(z));
 }
