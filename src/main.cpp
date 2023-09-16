@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "integrator.h"
+#include "math_funcs.h"
 
 double pilot_aileron_deflection(double time) {
     if (time <= 2) {
@@ -159,8 +160,22 @@ void question_3() {
     std::cout << "\n" << std::endl;
 }
 
+void question_4() {
+    std::cout << "==================\n";
+    std::cout << "=== Question 4 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    std::vector<double> w = { 0.0001, 0.0001, 0.0001 };
+    std::vector<double> x = { 124, 31.89, 20.945 };
+    double res = dot_product(w, x);
+
+    std::cout << "z = wx = " << std::fixed << std::setprecision(7) << res
+        << "\n\n" << std::endl;
+}
+
 int main() {
     question_1();
     question_2();
     question_3();
+    question_4();
 } 
