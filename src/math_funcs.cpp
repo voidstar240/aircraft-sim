@@ -3,8 +3,7 @@
 #include <stdexcept>
 #include <cmath>
 
-
-double dot_product(std::vector<double> u, std::vector<double> v) {
+double dot_product(const std::vector<double> u, const std::vector<double> v) {
     if (u.size() != v.size()) {
         throw std::invalid_argument("Vectors passed into function `dot_product` have different size");
     }

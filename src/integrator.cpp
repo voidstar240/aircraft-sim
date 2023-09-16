@@ -1,7 +1,10 @@
 #include "integrator.h"
 
-IntegrationData euler_integrate(RateFunction rate_func, std::vector<double> initial_vals,
-                        double t_init, double dt, size_t steps) {
+IntegrationData euler_integrate(const RateFunction rate_func,
+                                const std::vector<double> initial_vals,
+                                const double t_init,
+                                const double dt,
+                                const size_t steps) {
     // Init structure for output data
     IntegrationData data = IntegrationData(steps, initial_vals.size());
     // set initial conditions

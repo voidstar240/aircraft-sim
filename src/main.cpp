@@ -11,7 +11,7 @@
 #include "integrator.h"
 #include "math_funcs.h"
 
-double pilot_aileron_deflection(double time) {
+double pilot_aileron_deflection(const double time) {
     if (time <= 2) {
         return 1.0;
     } else {
@@ -19,7 +19,8 @@ double pilot_aileron_deflection(double time) {
     }
 }
 
-std::vector<double> pilot_roll_rate_dot(double time, double* state) {
+std::vector<double> pilot_roll_rate_dot(const double time,
+                                        const double* state) {
     const double roll_damping = -0.8;
     const double aileron_eff = 0.9;
     const double p = state[0];
@@ -30,13 +31,13 @@ std::vector<double> pilot_roll_rate_dot(double time, double* state) {
     return { roll_rate_dot };
 }
 
-double auto_aileron_deflection(double* state) {
+double auto_aileron_deflection(const double* state) {
     const double k = 1.5;
     const double p = state[0];
     return -k * p;
 }
 
-std::vector<double> auto_roll_rate_dot(double time, double* state) {
+std::vector<double> auto_roll_rate_dot(const double time, const double* state) {
     const double roll_damping = -0.8;
     const double aileron_eff = 0.9;
     const double p = state[0];
@@ -47,14 +48,15 @@ std::vector<double> auto_roll_rate_dot(double time, double* state) {
     return { roll_rate_dot };
 }
 
-double auto_k_aileron_deflection(double* state) {
+double auto_k_aileron_deflection(const double* state) {
     const double p = state[0];
     const double k = state[1];
     return -k * p;
 }
 
 // only use this with a forward euler integrator with dt = 0.01
-std::vector<double> auto_k_roll_rate_dot(double time, double* state) {
+std::vector<double> auto_k_roll_rate_dot(const double time,
+                                         const double* state) {
     const double roll_damping = -0.8;
     const double aileron_eff = 0.9;
     const double alpha = 1.0;
@@ -70,7 +72,7 @@ std::vector<double> auto_k_roll_rate_dot(double time, double* state) {
     return { roll_rate_dot, k_dot };
 }
 
-void pretty_print_roll_states(IntegrationData* data) {
+void pretty_print_roll_states(const IntegrationData* data) {
     std::cout << "+--------+-----------+\n";
     std::cout << "|  Time  | Roll Rate |\n";
     std::cout << "+--------+-----------+\n";
@@ -82,7 +84,7 @@ void pretty_print_roll_states(IntegrationData* data) {
     std::cout << "+--------+-----------+" << std::endl;
 }
 
-void csv_print_roll_states(IntegrationData* data) {
+void csv_print_roll_states(const IntegrationData* data) {
     std::cout << "time,roll rate\n";
     for (int i = 0; i < data->get_steps(); i++) {
         std::cout << data->get_time(i) << "," << data->get_state(i)[0] << "\n";
@@ -104,7 +106,9 @@ void question_1() {
     const double p_0 = 1.0;
 
     // integrate
-    IntegrationData data = euler_integrate(pilot_roll_rate_dot, { p_0 }, t_initial, delta_t, step_num);
+    IntegrationData data = euler_integrate(
+            pilot_roll_rate_dot, { p_0 }, t_initial, delta_t, step_num
+        );
 
     // print roll states
     pretty_print_roll_states(&data);
@@ -127,7 +131,9 @@ void question_2() {
     const double p_0 = 1.0;
 
     // integrate
-    IntegrationData data = euler_integrate(auto_roll_rate_dot, { p_0 }, t_initial, delta_t, step_num);
+    IntegrationData data = euler_integrate(
+            auto_roll_rate_dot, { p_0 }, t_initial, delta_t, step_num
+        );
 
     // print roll states
     pretty_print_roll_states(&data);
@@ -151,7 +157,9 @@ void question_3() {
     const double k_0 = 1.5;
 
     // integrate
-    IntegrationData data = euler_integrate(auto_k_roll_rate_dot, { p_0, k_0 }, t_initial, delta_t, step_num);
+    IntegrationData data = euler_integrate(
+            auto_k_roll_rate_dot, { p_0, k_0 }, t_initial, delta_t, step_num
+        );
 
     // print roll states
     pretty_print_roll_states(&data);
