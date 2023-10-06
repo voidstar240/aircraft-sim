@@ -22,3 +22,7 @@ double sigmoid(const double z) {
 double gradient_sigmoid(const double z) {
     return sigmoid(z) * (1.0 - sigmoid(z));
 }
+
+double gradient_cost(const double y_pred, const double y) {
+    return 2 * (y_pred - y);
+}

@@ -195,10 +195,24 @@ void question_5() {
         << "\n\n" << std::endl;
 }
 
+void question_6() {
+    std::cout << "==================\n";
+    std::cout << "=== Question 6 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    const double y = 1;
+    const double y_pred = 0.504421;
+    const double grad_cost = gradient_cost(y_pred, y);
+
+    std::cout << "gradient_cost(0.504421, 1) = " << std::fixed << std::setprecision(6)
+        << grad_cost << "\n\n" << std::endl;
+}
+
 int main() {
     question_1();
     question_2();
     question_3();
     question_4();
     question_5();
+    question_6();
 } 
