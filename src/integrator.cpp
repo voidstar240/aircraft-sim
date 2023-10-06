@@ -1,7 +1,7 @@
 #include "integrator.h"
 
 IntegrationData euler_integrate(const RateFunction rate_func,
-                                const std::vector<double> initial_vals,
+                                const std::vector<double>& initial_vals,
                                 const double t_init,
                                 const double dt,
                                 const size_t steps) {
@@ -17,7 +17,8 @@ IntegrationData euler_integrate(const RateFunction rate_func,
     for (size_t i = 0; i < steps - 1; i++) {
         data.set_time(i + 1, t_init + (dt * (i + 1)));
         data.get_state(i + 1);
-        std::vector<double> rates = rate_func(data.get_time(i), data.get_state(i));
+        std::vector<double> rates =
+            rate_func(data.get_time(i), data.get_state(i));
         // integrate all state variables
         for (size_t j = 0; j < rates.size(); j++) {
             // x_t+1 = x_t + x_dot * dt

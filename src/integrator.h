@@ -1,3 +1,4 @@
+#pragma once
 #include <cstdint>
 #include <vector>
 
@@ -37,7 +38,7 @@ public:
 
 // Numerically integrates `rate_func` using the forward Euler method
 IntegrationData euler_integrate(const RateFunction rate_func,
-                                const std::vector<double> initial_vals,
+                                const std::vector<double>& initial_vals,
                                 const double t_init,
                                 const double dt,
                                 const size_t steps);

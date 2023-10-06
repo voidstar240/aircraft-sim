@@ -10,6 +10,7 @@
 #include <vector>
 #include "integrator.h"
 #include "math_funcs.h"
+#include "neural_net.h"
 
 double pilot_aileron_deflection(const double time) {
     if (time <= 2) {
@@ -232,6 +233,37 @@ void question_7() {
     std::cout << "\n" << std::endl;
 }
 
+std::vector<double> question_8() {
+    std::cout << "==================\n";
+    std::cout << "=== Question 8 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    const std::vector<Aircraft> aircraft_training_data = {
+        Aircraft("M-346 Master",    124.0, 31.89, 20.945, true ),
+        Aircraft("AT-402B",          74.0, 51.08,  9.170, false),
+        Aircraft("MB-326",          103.0, 34.67,  8.300, true ),
+        Aircraft("AT-502B",          77.0, 52.00,  9.400, false),
+        Aircraft("MB-339",          104.0, 35.63, 13.000, true ),
+        Aircraft("AT-602",           92.0, 56.00, 12.500, false),
+        Aircraft("Aero L-159 Alca", 130.0, 31.29, 17.637, true ),
+        Aircraft("AT-504",           73.0, 52.00,  9.600, false),
+    };
+
+    const std::vector<double> w_0 = { 0.0001, 0.0001, 0.0001 };
+    const double a = 0.001;
+
+    const std::vector<double> w =
+        train_classifier(aircraft_training_data, w_0, a, 500);
+
+    std::cout << "w = [ ";
+    std::cout << std::fixed << std::setprecision(6) << w[0] << "; ";
+    std::cout << std::fixed << std::setprecision(6) << w[1] << "; ";
+    std::cout << std::fixed << std::setprecision(6) << w[2] << " ]\n";
+    std::cout << "\n" << std::endl;
+
+    return w;
+}
+
 int main() {
     question_1();
     question_2();
@@ -240,4 +272,5 @@ int main() {
     question_5();
     question_6();
     question_7();
+    const std::vector<double> w = question_8();
 } 
