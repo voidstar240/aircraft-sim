@@ -204,8 +204,32 @@ void question_6() {
     const double y_pred = 0.504421;
     const double grad_cost = gradient_cost(y_pred, y);
 
-    std::cout << "gradient_cost(0.504421, 1) = " << std::fixed << std::setprecision(6)
-        << grad_cost << "\n\n" << std::endl;
+    std::cout << "gradient_cost(0.504421, 1) = " << std::fixed
+        << std::setprecision(6) << grad_cost << "\n\n" << std::endl;
+}
+
+void question_7() {
+    std::cout << "==================\n";
+    std::cout << "=== Question 7 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    const double y = 1;
+    const std::vector<double> w = { 0.0001, 0.0001, 0.0001 };
+    const std::vector<double> x = { 124, 31.89, 20.945 };
+    const double a = 0.001;
+    const std::vector<double> dw = gradient_weights(w, x, y);
+    const std::vector<double> w_next = update_weights(w, dw, a);
+
+    std::cout << "dw = [ ";
+    std::cout << std::fixed << std::setprecision(7) << dw[0] << "; ";
+    std::cout << std::fixed << std::setprecision(7) << dw[1] << "; ";
+    std::cout << std::fixed << std::setprecision(7) << dw[2] << " ]\n";
+    
+    std::cout << "w = [ ";
+    std::cout << std::fixed << std::setprecision(7) << w_next[0] << "; ";
+    std::cout << std::fixed << std::setprecision(7) << w_next[1] << "; ";
+    std::cout << std::fixed << std::setprecision(7) << w_next[2] << " ]\n";
+    std::cout << "\n" << std::endl;
 }
 
 int main() {
@@ -215,4 +239,5 @@ int main() {
     question_4();
     question_5();
     question_6();
+    question_7();
 } 
