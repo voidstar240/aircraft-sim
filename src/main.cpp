@@ -264,6 +264,32 @@ std::vector<double> question_8() {
     return w;
 }
 
+void question_9(const std::vector<double>& weights) {
+    std::cout << "==================\n";
+    std::cout << "=== Question 9 ===\n";
+    std::cout << "==================\n" << std::endl;
+
+    const bool vision = 0.5 > sigmoid(dot_product(weights,
+                std::vector<double>{ 87.0, 38.67,  6.000 }));
+    const bool caravan = 0.5 > sigmoid(dot_product(weights,
+                std::vector<double>{ 79.0, 52.08,  8.000 }));
+    const bool delfin = 0.5 > sigmoid(dot_product(weights,
+                std::vector<double>{ 92.0, 33.75,  7.804 }));
+    const bool at802u = 0.5 > sigmoid(dot_product(weights,
+                std::vector<double>{ 91.0, 59.25, 16.000 }));
+
+    std::cout << "Aircraft Classifications:\n";
+    std::cout << "  SF50 Vision:      "
+        << (vision ? "Jet" : "Turboprop") << "\n";
+    std::cout << "  208 Caravan:      "
+        << (caravan ? "Jet" : "Turboprop") << "\n";
+    std::cout << "  Aero L-29 Delfin: "
+        << (delfin ? "Jet" : "Turboprop") << "\n";
+    std::cout << "  AT-802U:          "
+        << (at802u ? "Jet" : "Turboprop") << "\n";
+    std::cout << "\n" << std::endl;
+}
+
 int main() {
     question_1();
     question_2();
@@ -273,4 +299,5 @@ int main() {
     question_6();
     question_7();
     const std::vector<double> w = question_8();
+    question_9(w);
 } 
