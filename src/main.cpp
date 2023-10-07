@@ -12,6 +12,7 @@
 #include "math_funcs.h"
 #include "neural_net.h"
 
+// 1 for -inf < x < 2, 0 otherwise
 double pilot_aileron_deflection(const double time) {
     if (time <= 2) {
         return 1.0;
@@ -73,6 +74,7 @@ std::vector<double> auto_k_roll_rate_dot(const double time,
     return { roll_rate_dot, k_dot };
 }
 
+// pretty prints the roll states
 void pretty_print_roll_states(const IntegrationData* data) {
     std::cout << "+--------+-----------+\n";
     std::cout << "|  Time  | Roll Rate |\n";
@@ -85,6 +87,7 @@ void pretty_print_roll_states(const IntegrationData* data) {
     std::cout << "+--------+-----------+" << std::endl;
 }
 
+// prints roll states out in csv format so it can be graphed easily
 void csv_print_roll_states(const IntegrationData* data) {
     std::cout << "time,roll rate\n";
     for (int i = 0; i < data->get_steps(); i++) {
@@ -174,8 +177,11 @@ void question_4() {
     std::cout << "=== Question 4 ===\n";
     std::cout << "==================\n" << std::endl;
 
+    // set w and x
     std::vector<double> w = { 0.0001, 0.0001, 0.0001 };
     std::vector<double> x = { 124, 31.89, 20.945 };
+
+    // calc dot product of w and x
     double res = dot_product(w, x);
 
     std::cout << "z = wx = " << std::fixed << std::setprecision(7) << res
@@ -238,6 +244,7 @@ std::vector<double> question_8() {
     std::cout << "=== Question 8 ===\n";
     std::cout << "==================\n" << std::endl;
 
+    // create training data set
     const std::vector<Aircraft> aircraft_training_data = {
         Aircraft("M-346 Master",    124.0, 31.89, 20.945, true ),
         Aircraft("AT-402B",          74.0, 51.08,  9.170, false),
@@ -252,6 +259,7 @@ std::vector<double> question_8() {
     const std::vector<double> w_0 = { 0.0001, 0.0001, 0.0001 };
     const double a = 0.001;
 
+    // train the neural net to obtain weights
     const std::vector<double> w =
         train_classifier(aircraft_training_data, w_0, a, 500);
 
@@ -261,6 +269,7 @@ std::vector<double> question_8() {
     std::cout << std::fixed << std::setprecision(6) << w[2] << " ]\n";
     std::cout << "\n" << std::endl;
 
+    // return weights so they don't have to be recalculated in question 9
     return w;
 }
 
@@ -269,6 +278,7 @@ void question_9(const std::vector<double>& weights) {
     std::cout << "=== Question 9 ===\n";
     std::cout << "==================\n" << std::endl;
 
+    // predict the engine type of 4 new aircraft
     const bool vision = 0.5 > sigmoid(dot_product(weights,
                 std::vector<double>{ 87.0, 38.67,  6.000 }));
     const bool caravan = 0.5 > sigmoid(dot_product(weights,

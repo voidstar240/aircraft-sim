@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdint>
 
+// Stores basic data about an aircraft
 struct Aircraft {
     std::string name;
     double approach_speed;
@@ -19,6 +20,7 @@ struct Aircraft {
         has_jet_engine(has_jet_engine) {};
 };
 
+// trains the neural net based on a data set. Returns the weights
 std::vector<double> train_classifier(const std::vector<Aircraft>& training_data,
                                      const std::vector<double> w_0,
                                      const double a,
