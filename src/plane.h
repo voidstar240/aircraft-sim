@@ -18,13 +18,15 @@ public:
 	virtual ~Plane() {}
 
 	void operate(double dt);
-	double get_pos() const { return pos; }
-	double get_vel() const { return vel; }
-	double get_distance() const { return distance; }
-	double get_loiter_time() const { return loiter_time; }
-	void set_vel(double vel) { this->vel = vel; }
-	void set_loiter_time(double time) { this->loiter_time = static_cast<double>(time > 0.0)*time; }
-	double distance_to_SCE() const { return static_cast<double>(destination == 0)*(distance-pos); }
+	inline double get_pos() const { return pos; }
+	inline double get_vel() const { return vel; }
+	inline double get_loiter_time() const { return loiter_time; }
+	inline std::string get_origin() const { return airport_network.get_node_data(origin); }
+	inline std::string get_destination() const { return airport_network.get_node_data(destination); }
+	inline bool get_at_SCE() const { return at_SCE; }
+	inline void set_vel(double vel) { this->vel = vel; }
+	inline void set_loiter_time(double time) { this->loiter_time = static_cast<double>(time > 0.0)*time; }
+	inline double distance_to_SCE() const { return static_cast<double>(destination == 0)*(distance-pos); }
 	virtual double time_on_ground() = 0;
 	virtual std::string plane_type() const { return "GA"; };
 	static double draw_from_normal_dist(double mean, double stdev);

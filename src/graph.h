@@ -60,4 +60,7 @@ public:
 		}
 		return false;
 	}
+
+	/// Returns the NodeData from the NodeID
+	inline NodeData get_node_data(NodeID node) const { return nodes[node]; }
 };

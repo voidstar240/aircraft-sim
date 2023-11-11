@@ -138,10 +138,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\atc.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\atc.h" />
     <ClInclude Include="src\graph.h" />
     <ClInclude Include="src\plane.h" />
   </ItemGroup>
