@@ -26,10 +26,13 @@ public:
 	inline bool get_at_SCE() const { return at_SCE; }
 	inline void set_vel(double vel) { this->vel = vel; }
 	inline void set_loiter_time(double time) { this->loiter_time = static_cast<double>(time > 0.0)*time; }
-	inline double distance_to_SCE() const { return static_cast<double>(destination == 0)*(distance-pos); }
+	inline double distance_to_SCE() const { return (destination == 0) ? (distance-pos) : (10000.0); }
 	virtual double time_on_ground() = 0;
 	virtual std::string plane_type() const { return "GA"; };
 	static double draw_from_normal_dist(double mean, double stdev);
+
+	inline NodeID get_origin_id() const { return origin; }
+	inline NodeID get_destination_id() const { return destination; }
 };
 
 class Airliner : public Plane {

@@ -16,7 +16,7 @@ void ATC::control_traffic()
 	}
 
 	for (Plane* plane : registered_planes) {
-		if (!plane->get_at_SCE() && (plane->distance_to_SCE() < ATC::AIRSPACE_DISTANCE) && (plane->get_loiter_time() <= 0)) {
+		if (!plane->get_at_SCE() && (plane->distance_to_SCE() <= ATC::AIRSPACE_DISTANCE) && (plane->get_loiter_time() <= 0)) {
 			plane->set_loiter_time(100);
 		}
 	}

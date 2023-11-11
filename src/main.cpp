@@ -5,6 +5,7 @@
 #include "graph.h"
 #include "plane.h"
 #include "atc.h"
+#include "HW2_Visualizer.h"
 
 typedef std::string AirportName;
 typedef double Distance;
@@ -41,14 +42,16 @@ int main(int argc, char* argv[]) {
 	atc.register_plane(GA2);
 	atc.register_plane(GA3);
 
+	HW2_VIZ viz;
+
 	while (true) {
-		AA5915.operate(50);
-		UA5236.operate(50);
-		UA4465.operate(50);
-		AA6240.operate(50);
-		GA1.operate(50);
-		GA2.operate(50);
-		GA3.operate(50);
+		AA5915.operate(50.0);
+		UA5236.operate(50.0);
+		UA4465.operate(50.0);
+		AA6240.operate(50.0);
+		GA1.operate(50.0);
+		GA2.operate(50.0);
+		GA3.operate(50.0);
 		atc.control_traffic();
 		std::cout << "AA5915: pos: " << AA5915.get_pos() << std::endl;
 		std::cout << "UA5236: pos: " << UA5236.get_pos() << std::endl;
@@ -57,7 +60,16 @@ int main(int argc, char* argv[]) {
 		std::cout << "GA1:    pos: " << AA5915.get_pos() << std::endl;
 		std::cout << "GA1:    pos: " << AA5915.get_pos() << std::endl;
 		std::cout << "GA1:    pos: " << AA5915.get_pos() << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		viz.visualize_plane(AA5915.plane_type(), AA5915.get_origin_id(), AA5915.get_destination_id(), AA5915.get_pos());
+		viz.visualize_plane(UA5236.plane_type(), UA5236.get_origin_id(), UA5236.get_destination_id(), UA5236.get_pos());
+		viz.visualize_plane(UA4465.plane_type(), UA4465.get_origin_id(), UA4465.get_destination_id(), UA4465.get_pos());
+		viz.visualize_plane(AA6240.plane_type(), AA6240.get_origin_id(), AA6240.get_destination_id(), AA6240.get_pos());
+		viz.visualize_plane(GA1.plane_type(), GA1.get_origin_id(), GA1.get_destination_id(), GA1.get_pos());
+		viz.visualize_plane(GA2.plane_type(), GA2.get_origin_id(), GA2.get_destination_id(), GA2.get_pos());
+		viz.visualize_plane(GA3.plane_type(), GA3.get_origin_id(), GA3.get_destination_id(), GA3.get_pos());
+		if (!viz.update(50.0)) {
+			break;
+		}
 	}
 
 	return 0;

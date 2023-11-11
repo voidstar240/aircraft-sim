@@ -118,7 +118,8 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)lib\SDL2\SDL2.dll" "$(TargetDir)SDL2.dll"</Command>
+      <Command>copy /Y "$(ProjectDir)lib\SDL2\SDL2.dll" "$(TargetDir)SDL2.dll"
+copy /Y "$(ProjectDir)assets\map.bmp" "$(TargetDir)map.bmp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\atc.cpp" />
+    <ClCompile Include="src\HW2_Visualizer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\atc.h" />
     <ClInclude Include="src\graph.h" />
+    <ClInclude Include="src\HW2_Visualizer.h" />
     <ClInclude Include="src\plane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
