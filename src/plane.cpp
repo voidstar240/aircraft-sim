@@ -2,15 +2,15 @@
 #include <stdexcept>
 #include <sstream>
 
-Plane::Plane(std::string to, std::string from, const Graph<std::string, double>& airport_net) : airport_network(airport_net)
+Plane::Plane(std::string from, std::string to, const Graph<std::string, double>& airport_net) : airport_network(airport_net)
 {
-	if (!this->airport_network.find_node_id(to, this->origin)) {
+	if (!this->airport_network.find_node_id(from, this->origin)) {
 		std::stringstream err;
-		err << "`airport_net` has no airport named " << to << std::endl;
+		err << "`airport_net` has no airport named " << from << std::endl;
 		std::invalid_argument(err.str());
 	}
 
-	if (!this->airport_network.find_node_id(from, this->destination)) {
+	if (!this->airport_network.find_node_id(to, this->destination)) {
 		std::stringstream err;
 		err << "`airport_net` has no airport named " << to << std::endl;
 		std::invalid_argument(err.str());
@@ -18,7 +18,7 @@ Plane::Plane(std::string to, std::string from, const Graph<std::string, double>&
 
 	if (!this->airport_network.find_edge_between_nodes(this->origin, this->destination, this->distance)) {
 		std::stringstream err;
-		err << "`airport_net` has no edge connecting " << to << " to " << from << std::endl;
+		err << "`airport_net` has no edge connecting " << from << " to " << to << std::endl;
 		std::invalid_argument(err.str());
 	}
 
@@ -31,26 +31,29 @@ Plane::Plane(std::string to, std::string from, const Graph<std::string, double>&
 
 void Plane::operate(double dt)
 {
-	if (this->loiter_time > 0) {
+	if (this->loiter_time != 0) {
 		this->loiter_time -= dt;
+		this->loiter_time = this->loiter_time * static_cast<double>(this->loiter_time > 0.0);
 		return;
 	}
-	this->loiter_time = 0.0;
 
-	if (this->wait_time > 0) {
+	if (this->wait_time != 0) {
 		this->wait_time -= dt;
+		this->wait_time = this->wait_time * static_cast<double>(this->wait_time > 0.0);
 		return;
 	}
-	this->wait_time = 0.0;
 
 	if (this->pos < this->distance) {
-		pos += vel * dt;
+		this->pos += this->vel * dt;
+		if (this->pos > this->distance) {
+			this->pos = this->distance;
+		}
 		this->at_SCE = false;
 		return;
 	}
 
 	if (this->destination == 0) {
-		this->at_SCE = this;
+		this->at_SCE = true;
 	}
 
 	time_on_ground();
