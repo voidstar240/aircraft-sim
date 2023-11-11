@@ -10,3 +10,9 @@ Ensure that HW2_424 is set as the startup project.
 Build the HW2_424 Project. The built executable is located in
 the `build\<CONFIG>-<PLATFORM>\bin\` directory. If you want to
 move this file ensure to move `SDL2.dll` and `map.bmp` with it.
+
+## Dependencies
+
+SDL2 is the main dependency of this project. This project ships with all the
+required SDL2 dependencies for ease of building. Therefore, there is no need
+to install SDL2 on your system to build this program.
